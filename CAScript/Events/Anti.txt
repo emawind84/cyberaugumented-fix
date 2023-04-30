@@ -8,8 +8,11 @@ Class CyberaugumentedStartupHandler : StaticEventHandler
 	{
 		for ( int i = 0; i < AllActorClasses.Size(); ++i)
 		{
-			let type = (class<Inventory>)(AllActorClasses[i]);
-			
+			let classes = AllActorClasses[i];
+			if (classes.GetClassName() == "BDoomer" || classes.GetClassName() == "Doomer"
+				|| classes.GetClassName() == "BrutalDoomer" || classes.GetClassName() == "HDoomPlayer"
+				|| classes.GetClassName() == "Moonman")
+				{ detected = true; }
 			
 			if ( detected ) break;
 		}

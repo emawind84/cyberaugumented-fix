@@ -8,11 +8,7 @@ vec4 Process(vec4 color)
         3.0/64.0,   11.0/64.0,  1.0/64.0,   9.0/64.0,
         15.0/64.0,  7.0/64.0,   13.0/64.0,  5.0/64.0
     }; */
-    float dither2x2[4];
-    dither2x2[0] = 0;
-    dither2x2[1] = 2.0/32.0;
-    dither2x2[2] = 3.0/32.0;
-    dither2x2[3] = 1.0/32.0;
+    const float [] dither2x2 = float [] (0., 2.0/32.0, 3.0/32.0, 1.0/32.0);
     
     vec2 texCoord = gl_TexCoord[0].st;
     ivec2 texRes = textureSize(tex, 0);
