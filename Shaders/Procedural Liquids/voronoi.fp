@@ -11,7 +11,7 @@ vec4 Process(vec4 color)
     const float [] dither2x2 = float [] (0., 2.0/32.0, 3.0/32.0, 1.0/32.0);
     
     vec2 texCoord = gl_TexCoord[0].st;
-    ivec2 texRes = textureSize(tex, 0);
+    vec2 texRes = vec2(textureSize(tex, 0));
     int noiseRes = textureSize(noise, 0).y;
     int colorRes = textureSize(colormap, 0).y;
     
@@ -26,7 +26,7 @@ vec4 Process(vec4 color)
     for(float y = -2.0; y <= 2.0; y++)
     {
         vec2 cell = vec2(x,y);
-        vec2 offset = 0.5+0.5*sin(timer+6.2831*texelFetch(noise, ivec2((point+cell)/5.0*noiseRes)%noiseRes, 0).xy);
+        vec2 offset = 0.5+0.5*sin(timer+6.2831*texelFetch(noise, ivec2((point+cell)/5.0*float(noiseRes))%noiseRes, 0).xy);
         vec2 r = cell-fraction+offset; //I forgot what r is supposed to stand for
         
         float dist = dot(r, r);
@@ -38,7 +38,7 @@ vec4 Process(vec4 color)
             result.y = dist;
     }
     
-    vec4 gradient = texelFetch(colormap, ivec2(0.0, clamp(result.x+dither2x2[ditherCoord]-0.125, 0.0, 0.99)*colorRes), 0);
+    vec4 gradient = texelFetch(colormap, ivec2(0.0, clamp(result.x+dither2x2[ditherCoord]-0.125, 0.0, 0.99)*float(colorRes)), 0);
     
     return gradient*color;
 }
